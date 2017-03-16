@@ -1,0 +1,57 @@
+
+
+
+	me@acer % openssl x509 -in dobertin.crt -text -noout 
+
+	Certificate:
+	    Data:
+		Version: 1 (0x0)
+		Serial Number: 1349881083 (0x50758cfb)
+		Signature Algorithm: sha1WithRSAEncryption
+		Issuer: C=DE, ST=nrw, L=bochum, O=hgi, OU=rub, CN=rub
+		Validity
+		    Not Before: Oct 10 14:58:03 2012 GMT
+		    Not After : Oct 10 14:58:03 2013 GMT
+		Subject: C=DE, ST=nrw, L=bochum, O=hgi, OU=rub, CN=rub
+		Subject Public Key Info:
+		    Public Key Algorithm: rsaEncryption
+		    RSA Public Key: (512 bit)
+		        Modulus (512 bit):
+		            00:8f:ed:32:03:07:8b:ba:9f:d9:a8:04:6d:a6:32:
+		            05:af:de:44:a2:38:e0:3b:03:6c:0f:1d:60:14:15:
+		            ec:3c:88:c0:e9:fa:82:e4:f1:29:4c:44:b0:3f:96:
+		            a1:a5:1f:88:a0:3e:f9:d3:6d:84:06:58:a0:a9:32:
+		            95:1b:a8:10:81
+		        Exponent: 65537 (0x10001)
+	    Signature Algorithm: sha1WithRSAEncryption
+		43:95:58:5b:c8:0b:55:f3:85:a9:01:51:be:89:e3:e3:3e:15:
+		ce:0a:92:b6:ef:50:30:6f:34:4e:9a:d2:7d:6d:45:fd:cd:6d:
+		8d:19:61:54:00:28:0e:41:19:a2:b9:d7:cb:db:14:bf:81:00:
+		69:17:e1:af:85:03:d0:3f:2b:bf
+
+
+Bleichenbacher Angriff:
+Vorhanden:
+- n und e, sowie ein Oracle das prüft ob c^d mod n richtige Format für  RSA mit PKCS#1 v1.5 Padding ist
+
+Chosen-Ciphertext Angriff
+Es muss ein c' = (s^e * c)  mod n gefunden werden, anschließend kann m = m' * s^-1 mod (n) berechnet werden
+Ein mögliches s konnte durch bruteforcing gefunden werden, nur bei einem gültigen s kam die Meldung (Couldn't decrypt: Blocktype mismatch: )
+Der Plaintext startet daher mit \x00\x02 (nach PKCS#1 v1.5) 
+
+s:
+1 Couldn't decrypt: Blocktype mismatch: -110
+252 Couldn't decrypt: Blocktype mismatch: -112
+503 Couldn't decrypt: Blocktype mismatch: -113
+749 Couldn't decrypt: Blocktype mismatch: -124
+754 Couldn't decrypt: Blocktype mismatch: -115
+1231 Couldn't decrypt: Blocktype mismatch: 119
+1256 Couldn't decrypt: Blocktype mismatch: -119
+1507 Couldn't decrypt: Blocktype mismatch: -121
+1758 Couldn't decrypt: Blocktype mismatch: -123
+2009 Couldn't decrypt: Blocktype mismatch: -125
+2260 Couldn't decrypt: Blocktype mismatch: -126
+2703 Couldn't decrypt: Blocktype mismatch: -24
+2762 Couldn't decrypt: Blocktype mismatch: 126
+3013 Couldn't decrypt: Blocktype mismatch: 124
+
